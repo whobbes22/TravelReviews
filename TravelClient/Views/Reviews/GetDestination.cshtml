@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>Selected Destination Reviews</h1>
+<p>@Model.Count</p>
+@* <h3>Reviews for: @Model[0].ReviewDestination</h3> *@
+
+<h3>Reviews:</h3>
+<ol>
+@foreach (Review review in Model)
+{
+  <li><strong>@review.ReviewDestination | Rating: @review.ReviewRating </strong>| <a href="/Reviews/Details/@(review.ReviewId)">View Details</a></li>
+}
+</ol>
+
+<p>@Html.ActionLink("Back to index", "Index")</p>

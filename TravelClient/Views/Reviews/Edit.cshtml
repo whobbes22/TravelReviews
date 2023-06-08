@@ -1,0 +1,26 @@
+@{
+  ViewData["Title"] = "Create Review";
+}
+
+@model TravelClient.Models.Review
+
+<h4>Edit @Model.ReviewDestination by @Model.ReviewUserName</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.ReviewId)
+  <p>Reviewed Destination: @Html.TextBoxFor(model => model.ReviewDestination)</p>
+  <br>
+  <p>Reviewed Country: @Html.TextBoxFor(model => model.ReviewCountry)</p>
+  <br>
+  @* <p>User Name: @Html.TextBoxFor(model => model.ReviewUserName)</p>
+  <br> *@
+  <p>Rating: @Html.TextBoxFor(model => model.ReviewRating)</p>
+  <br>
+  
+  <br>
+  <input type="submit" value="Edit Review" class="btn btn-primary"/>
+}
+
+<br>
+<p>@Html.ActionLink("Back to details", "Details", new {id = @Model.ReviewId})</p>

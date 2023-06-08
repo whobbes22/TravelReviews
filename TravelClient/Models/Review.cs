@@ -21,8 +21,8 @@ namespace TravelClient.Models
 
     public static List<Review> GetReviews()
     {
-        var apiCallTask = ApiHelper.GetAll();
-        var result = apiCallTask.Result;
+        Task<string> apiCallTask = ApiHelper.GetAll();
+        string result = apiCallTask.Result;
 
         JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
         List<Review> reviewList = JsonConvert.DeserializeObject<List<Review>>(jsonResponse.ToString());
@@ -74,6 +74,17 @@ namespace TravelClient.Models
       string result = apiCallTask.Result;
 
       return result;
+    }
+
+    public static List<Review> GetDestination(string destination)
+    {
+        var apiCallTask = ApiHelper.GetDestination(destination);
+        var result = apiCallTask.Result;
+
+        JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
+        List<Review> reviewList = JsonConvert.DeserializeObject<List<Review>>(jsonResponse.ToString());
+
+        return reviewList;
     }
   }
 }

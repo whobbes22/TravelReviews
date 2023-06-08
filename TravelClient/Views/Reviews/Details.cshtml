@@ -1,0 +1,14 @@
+@{
+  ViewData["Title"] = $"Details for {@Model.ReviewDestination}";
+}
+
+<h1>All About @Model.ReviewDestination by @Model.ReviewUserName</h1>
+
+<p>Destination: @Model.ReviewDestination</p>
+<p>Country: @Model.ReviewCountry</p>
+<p>User: @Model.ReviewUserName</p>
+<p>Rating: @Model.ReviewRating</p>
+
+<p>@Html.ActionLink("Edit details", "Edit", new { id = @Model.ReviewId })</p>
+<p>@Html.ActionLink("Delete review", "Delete", new { id = @Model.ReviewId })</p>
+<p>@Html.ActionLink("Return to index", "Index")</p>

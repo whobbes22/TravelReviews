@@ -21,6 +21,14 @@ namespace TravelClient.Models
       return response.Content;
     }
 
+    public static async Task<string> GetDestination(string destination)
+    {
+      RestClient client = new RestClient("http://localhost:5000/");
+      RestRequest request = new RestRequest($"api/Reviews?reviewDestination={destination}", Method.Get);
+      RestResponse response = await client.GetAsync(request);
+      return response.Content;
+    }
+
     public static async Task<string> GetPopular()
     {
       RestClient client = new RestClient("http://localhost:5000/");
@@ -64,3 +72,5 @@ namespace TravelClient.Models
     }
   }
 }
+
+// https://localhost:5001/api/Reviews?reviewDestination={destination}

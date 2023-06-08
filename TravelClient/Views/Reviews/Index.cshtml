@@ -1,0 +1,24 @@
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<h1>All Reviews</h1>
+<h3>Actions:</h3>
+<p>@Html.ActionLink("Add a new review to the site", "Create")</p>
+
+<h3>Reviews:</h3>
+<p>Most popular destination: @ViewBag.ReviewPopular</p>
+
+@using (Html.BeginForm())
+{
+  @* <p>Search term: @Html.TextBox("destination")</p> *@
+  <input type="text" name="destination" />
+  <input type="submit" value="Search" class="btn btn-primary"/>
+}
+<ol>
+ @foreach (Review review in Model)
+{
+  <li><strong>@review.ReviewDestination | Rating: @review.ReviewRating </strong>| <a href="/Reviews/Details/@(review.ReviewId)">View Details</a></li>
+}
+</ol> 
+
