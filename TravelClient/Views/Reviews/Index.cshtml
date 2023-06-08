@@ -1,3 +1,4 @@
+@*@model PaginatedList<TravelClient.Models.Review>*@
 @{
     ViewData["Title"] = "Reviews";
 }
@@ -11,10 +12,12 @@
 
 @using (Html.BeginForm())
 {
-  @* <p>Search term: @Html.TextBox("destination")</p> *@
-  <input type="text" name="destination" />
+  <p>Destination: <input type="text" name="destination" /></p>
+  <p>Country: <input type="text" name="country" /></p>
+  <br>
   <input type="submit" value="Search" class="btn btn-primary"/>
 }
+<br>
 <ol>
  @foreach (Review review in Model)
 {
@@ -22,3 +25,22 @@
 }
 </ol> 
 
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

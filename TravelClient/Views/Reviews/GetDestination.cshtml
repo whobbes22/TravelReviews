@@ -2,9 +2,8 @@
     ViewData["Title"] = "Reviews";
 }
 
-<h1>Selected Destination Reviews</h1>
-<p>@Model.Count</p>
-@* <h3>Reviews for: @Model[0].ReviewDestination</h3> *@
+<h1>Search Results</h1>
+<h3>Search Terms: @ViewBag.Destination @ViewBag.Country</h3>
 
 <h3>Reviews:</h3>
 <ol>
@@ -15,3 +14,27 @@
 </ol>
 
 <p>@Html.ActionLink("Back to index", "Index")</p>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="GetDestination"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-destination="@ViewBag.Destination"
+   asp-route-country="@ViewBag.Country"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="GetDestination"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-destination="@ViewBag.Destination"
+   asp-route-country="@ViewBag.Country"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>

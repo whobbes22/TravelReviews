@@ -64,6 +64,7 @@ namespace TravelClient.Models
 
         JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);
         List<Review> reviewList = JsonConvert.DeserializeObject<List<Review>>(jsonResponse.ToString());
+        // string destination = reviewList[0].ReviewDestination;
 
         return reviewList;
     }
@@ -76,9 +77,9 @@ namespace TravelClient.Models
       return result;
     }
 
-    public static List<Review> GetDestination(string destination)
+    public static List<Review> GetDestination(string destination, string country)
     {
-        var apiCallTask = ApiHelper.GetDestination(destination);
+        var apiCallTask = ApiHelper.GetDestination(destination, country);
         var result = apiCallTask.Result;
 
         JArray jsonResponse = JsonConvert.DeserializeObject<JArray>(result);

@@ -1,21 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using TravelClient.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace TravelClient.Controllers;
 
 public class ReviewsController : Controller
 {
-  public IActionResult Index()
+  #nullable enable
+  public IActionResult Index(int? pageNumber)
   {
     List<Review> reviews = Review.GetReviews();
+    // IQueryable<Review> reviewsQueryable = reviews.AsQueryable();
     ViewBag.ReviewPopular = Review.GetPopular(); 
-    return View(reviews);
+    int pageSize = 3;
+    return View(PaginatedList<Review>.Create(reviews, pageNumber ?? 1, pageSize ));
   }
+  #nullable disable
 
-  public IActionResult Random()
+  public IActionResult Random(int? pageNumber)
   {
     List<Review> reviews = Review.GetRandom();
-    return View(reviews);
+    int  pageSize = reviews.Count;
+    return View(PaginatedList<Review>.Create(reviews, pageNumber ?? 1, pageSize ));
   }
 
   public IActionResult Details(int id)
@@ -63,14 +70,17 @@ public class ReviewsController : Controller
   }
 
   [HttpPost, ActionName("Index")]
-  public ActionResult SearchDestination(string destination)
+  public ActionResult SearchDestination(string destination, string country)
   {
-    return RedirectToAction("GetDestination", new { destination});
+    return RedirectToAction("GetDestination", new { destination, country});
   }
 
-  public ActionResult GetDestination(string destination)
+  public ActionResult GetDestination(int? pageNumber, string destination, string country)
   {
-    List<Review> reviews = Review.GetDestination(destination);
-    return View(reviews);
+    ViewBag.Destination = destination;
+    ViewBag.Country =  country;
+    List<Review> reviews = Review.GetDestination(destination, country);
+    int  pageSize = 3;
+    return View(PaginatedList<Review>.Create(reviews, pageNumber ?? 1, pageSize ));
   }
 }
